@@ -1,158 +1,97 @@
-\documentclass[bachelor, och, labwork]{SCWorks}
-% параметр - тип обучения - одно из значений:
-%    spec     - специальность
-%    bachelor - бакалавриат (по умолчанию)
-%    master   - магистратура
-% параметр - форма обучения - одно из значений:
-%    och   - очное (по умолчанию)
-%    zaoch - заочное
-% параметр - тип работы - одно из значений:
-%    referat    - реферат
-%    coursework - курсовая работа (по умолчанию)
-%    diploma    - дипломная работа
-%    pract      - отчет по практике
-%    pract      - отчет о научно-исследовательской работе
-%    autoref    - автореферат выпускной работы
-%    assignment - задание на выпускную квалификационную работу
-%    review     - отзыв руководителя
-%    critique   - рецензия на выпускную работу
-% параметр - включение шрифта
-%    times    - включение шрифта Times New Roman (если установлен)
-%               по умолчанию выключен
-\usepackage[T2A]{fontenc}
-\usepackage[utf8]{inputenc}
-\usepackage{graphicx}
+\section{Вычисление факториала}
 
-\usepackage[sort,compress]{cite}
-\usepackage{amsmath}
-\usepackage{amssymb}
-\usepackage{amsthm}
-\usepackage{fancyvrb}
-\usepackage{longtable}
-\usepackage{array}
-\usepackage[english,russian]{babel}
-\usepackage{minted}
-\usemintedstyle{xcode}
-\usepackage{tempora}
+\textbf{Задание:} Разработать приложение для вычисления факториала по приведенному примеру.
 
+Создано окно приложения, содержащее два элемента TextBox, два элемента Label и один элемент Button. Для отображения сообщений об ошибках
+в окно добавлен элемент ErrorProvider. Вид окна представлен на рисунке \ref{fig:task1_form}.
+\begin{figure}[H]
+    \centering
+    \includegraphics{task1/form.png}
+    \caption{Внешний вид формы программы для вычисления факториала}
+    \label{fig:task1_form}
+\end{figure}
+У элементов изменены значения некоторых атрибутов. 
+Значения измененных атрибутов представлены в таблице \ref{table:params1}.
 
-\usepackage[colorlinks=false]{hyperref}
+\begin{table}[H]
+    \small
+    \caption{Значения атрибутов элементов в приложении <<Факториал>>}\label{tab:fact-attr}
+    \begin{tabular}{|l|l|}\hline
+    Наименование атрибута & Значение\cr\hline
+    \multicolumn{2}{|l|}{Для формы}\cr\hline
+    \verb"Text" & \verb"Форма"\cr\hline
+    \verb"FormBorderStyle" & \verb"FixedSingle"\cr\hline
+    \verb"MaximizeBox" & \verb"False"\cr\hline
+    \multicolumn{2}{|l|}{Для первой надписи}\cr\hline
+    \verb"(Name)" & \verb"lblInput"\cr\hline
+    \verb"Text" & \verb"Введите целое число"\cr\hline
+    \multicolumn{2}{|l|}{Для второй надписи}\cr\hline
+    \verb"(Name)" & \verb"lblOutput"\cr\hline
+    \verb"Text" & \verb"Результат"\cr\hline
+    \multicolumn{2}{|l|}{Для первого текстового поля}\cr\hline
+    \verb"(Name)" & \verb"txtInput"\cr\hline
+    \multicolumn{2}{|l|}{Для второго текстового поля}\cr\hline
+    \verb"(Name)" & \verb"txtOutput"\cr\hline
+    \multicolumn{2}{|l|}{Для кнопки}\cr\hline
+    \verb"(Name)" & \verb"btnCalculate"\cr\hline
+    \verb"Text" & \verb"Вычислить"\cr\hline
+    \multicolumn{2}{|l|}{Для обработчика ошибок}\cr\hline
+    \verb"(Name)" & \verb"errorProvider1"\cr\hline
+    \end{tabular}
+    \label{table:params1}
+\end{table}
 
+Для работы программы была написана функция вычисления факториала:
+\inputminted[fontsize=\small, breaklines=true, style=bw, linenos]{cpp}{task1/fact.h}
+Здесь переменная \verb|N| "--- число, для которого нужно вычислить факториал.
 
-\newcommand{\eqdef}{\stackrel {\rm def}{=}}
+На нажатие кнопки <<Вычислить>> установлено выполнение следующего
+кода:
+\begin{minted}[fontsize=\small, breaklines=true, style=bw, linenos]{cpp}
+    private: System::Void btnCalculate_Click(System::Object^ sender, System::EventArgs^ e) {
+		ClearAll();
+		ll InputNumber;
+		bool result = Int64::TryParse(txtInput->Text, InputNumber);
+		if (!result) {
+			errorProvider1->SetError(txtInput, "Введено не целое число");
+			return;
+		}
+		if (InputNumber > 20) {
+			errorProvider1->SetError(txtInput, "Число слишком большое");
+			return;
+		}
+		ll OutputNumber = fact(InputNumber);
+		if (OutputNumber == -1) {
+			errorProvider1->SetError(txtInput, "Введено отрицательное число");
+			return;
+		}
+		txtOutput->Text = System::Convert::ToString(OutputNumber);
+	}
+\end{minted}
 
-\newtheorem{lem}{Лемма}
+После запуска приложения на экране появляется окно (см. рисунок \ref{fig:exec1})
+\begin{figure}[H]
+    \centering
+    \includegraphics{task1/exec.png}
+    \caption{Скриншот запуска программы}
+    \label{fig:exec1}
+\end{figure}
 
-% % При использовании biblatex вместо bibtex
-%\usepackage[style=gost-numeric]{biblatex}
-%\addbibresource{thesis.bib}
+При вводе целого числа после нажатия кнопки в поле вывода приводится
+результат вычисления факториала для заданного числа (см. рисунок \ref{fig:result1}).
+\begin{figure}[H]
+    \centering
+    \includegraphics{task1/result.png}
+    \caption{Результат работы}
+    \label{fig:result1}
+\end{figure}
 
-\begin{document}
-
-% Кафедра (в родительном падеже)
-\chair{математической кибернетики и компьютерных наук}
-
-% Тема работы
-\title{Тема работы}
-
-% Курс
-\course{2}
-
-% Группа
-\group{251}
-
-% Факультет (в родительном падеже) (по умолчанию "факультета КНиИТ")
-%\department{факультета КНиИТ}
-
-% Специальность/направление код - наименование
-%\napravlenie{02.03.02 "--- Фундаментальная информатика и информационные технологии}
-%\napravlenie{02.03.01 "--- Математическое обеспечение и администрирование информационных систем}
-%\napravlenie{09.03.01 "--- Информатика и вычислительная техника}
-\napravlenie{09.03.04 "--- Программная инженерия}
-%\napravlenie{10.05.01 "--- Компьютерная безопасность}
-
-% Для студентки. Для работы студента следующая команда не нужна.
-%\studenttitle{Студентки}
-
-% Фамилия, имя, отчество в родительном падеже
-\author{Рыданова Никиты Сергеевича}
-
-% Заведующий кафедрой
-\chtitle{доцент, к.\,ф.-м.\,н.} % степень, звание
-\chname{С.\,В.\,Миронов}
-
-%Научный руководитель (для реферата преподаватель проверяющий работу)
-\satitle{доцент, к.\,ф.-м.\,н.} %должность, степень, звание
-\saname{С.\,В.\,Миронов}
-
-% Руководитель практики от организации (только для практики,
-% для остальных типов работ не используется)
-\patitle{к.\,ф.-м.\,н., доцент}
-\paname{Д.\,Ю.\,Петров}
-
-% Семестр (только для практики, для остальных
-% типов работ не используется)
-\term{2}
-
-% Наименование практики (только для практики, для остальных
-% типов работ не используется)
-\practtype{учебная}
-
-% Продолжительность практики (количество недель) (только для практики,
-% для остальных типов работ не используется)
-\duration{2}
-
-% Даты начала и окончания практики (только для практики, для остальных
-% типов работ не используется)
-\practStart{01.07.2016}
-\practFinish{14.07.2016}
-
-% Год выполнения отчета
-\date{2020}
-
-\maketitle
-
-% Включение нумерации рисунков, формул и таблиц по разделам
-% (по умолчанию - нумерация сквозная)
-% (допускается оба вида нумерации)
-%\secNumbering
-
-
-\tableofcontents
-
-% Раздел "Обозначения и сокращения". Может отсутствовать в работе
-
-% Раздел "Определения". Может отсутствовать в работе
-%\definitions
-
-% Раздел "Определения, обозначения и сокращения". Может отсутствовать в работе.
-% Если присутствует, то заменяет собой разделы "Обозначения и сокращения" и "Определения"
-%\defabbr
-
-
-% Раздел "Введение"
-
-\intro
-
-%Библиографический список, составленный вручную, без использования BibTeX
-%
-%\begin{thebibliography}{99}
-%  \bibitem{Ione} Источник 1.
-%  \bibitem{Itwo} Источник 2
-%\end{thebibliography}
-
-%Библиографический список, составленный с помощью BibTeX
-%
-\bibliographystyle{gost780uv}
-\bibliography{thesis}
-
-% % При использовании biblatex вместо bibtex
-%\printbibliography
-
-\conclusion
-
-% Окончание основного документа и начало приложений
-% Каждая последующая секция документа будет являться приложением
-\appendix
-
-\end{document}
+Ввод некорректных значений обрабатывается элементом \verb|errorProvider1| и 
+сопровождается сообщением об ошибке (см. рисунок \ref{fig:error1} )
+\begin{figure}[H]
+    \centering
+    \includegraphics{task1/error.png}
+    \caption{Сообщение об ошибке}
+    \label{fig:error1}
+\end{figure}
+Полный код программы приведен в приложении А.

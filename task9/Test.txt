@@ -1,0 +1,36 @@
+﻿0 3 4 How many hours a day do you watch TV?
+1) On Tuesday
+2) I watch the news.
+3) About two hours.
+4) In my living room.$
+0 2 4 I got up ___ than my mother.
+1) the earliest
+2) earlier
+3) earliest
+4) early$
+0 3 4 Are you ___ at the moon?
+1) look
+2) looks
+3) looking
+4) looked$
+0 3 4 How do you spell "dog"?
+1) Cat.
+2) No, I don't.
+3) D-O-G
+4) I have one dog.
+0 1 2 "I'm 18 years bold" - is is a right sentence?$
+0 1 2 "Wake me up when September ends" is one of the most popular Green day's songs. Isn't it?$
+1 come They ... to the office at eight o’clock every morning$
+1 eats This manager usually ... sandwiches for lunch$
+1 watching Where are they ... the film at the moment?$
+1 passed Jake ... his school exams last May$
+0 1 4 Find wrong sentence:
+1) It’s me that’s responsible.
+2) What I love is driving at a high speed.
+3) It was yesterday that my secretary sent him the bill.
+4) The thing what annoys me is overcrowded schools.$
+
+
+
+
+
