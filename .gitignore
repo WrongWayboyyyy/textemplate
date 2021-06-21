@@ -8,4 +8,5 @@
 *.pdf
 *.gz
 *.toc
+_minted*
 
